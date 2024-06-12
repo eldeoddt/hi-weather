@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="color_black">#17171b</color>
+    <color name="color_ic">#5F5F5F</color>
+    <color name="color_bn_text">#434343</color>
+    <color name="color_ic_select">#202020</color>
+    <color name="color_grey">#3D3B40</color>
+    <color name="color_blue">#525CEB</color>
+    <color name="color_light_grey">#BFCFE7</color>
+    <color name="color_light_pink">#F8EDFF</color>
 </resources>

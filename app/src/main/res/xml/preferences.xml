@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:key="example_switch"
+        android:title="Enable Feature"
+        android:summary="Enable or disable a specific feature"
+        android:defaultValue="false" />
+
+    <ListPreference
+        android:key="example_list"
+        android:title="Select Option"
+        android:summary="Select one of the options"
+        android:entries="@array/example_list_entries"
+        android:entryValues="@array/example_list_values"
+        android:defaultValue="1" />
+
+    <EditTextPreference
+        android:key="example_text"
+        android:title="Enter Text"
+        android:summary="Enter some text"
+        android:defaultValue="" />
+
+    <SwitchPreferenceCompat
+        android:key="another_switch"
+        android:title="Another Switch"
+        android:summary="Another switch preference"
+        android:defaultValue="true" />
+
+</PreferenceScreen>
