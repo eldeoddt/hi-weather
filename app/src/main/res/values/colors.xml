@@ -8,6 +8,7 @@
     <color name="color_ic_select">#202020</color>
     <color name="color_grey">#3D3B40</color>
     <color name="color_blue">#525CEB</color>
+    <color name="color_light_blue">#BDC4FF</color>
     <color name="color_light_grey">#BFCFE7</color>
     <color name="color_light_pink">#F8EDFF</color>
 </resources>
