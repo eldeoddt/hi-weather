@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomNavigationViewNoRipple" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:itemBackground">@android:color/transparent</item>
         <item name="android:colorControlHighlight">@android:color/transparent</item>
         <item name="rippleColor">@android:color/transparent</item>
     </style>
+    <!--    main rv textview style -->
+    <style name="MainRvTextViewStyle">
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--    main rv linear style-->
+    <style name="MainRvLinearStyle">
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <!--    main textview style -->
+    <style name="MainTextViewStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!--    main temp style -->
+    <style name="MainTempStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+
 </resources>

@@ -60,4 +60,12 @@ dependencies {
     // viewpager2
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.google.android.material:material:1.3.0")
+
+    // coroutines
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+
+    // loggin interceptor
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/layout_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+
+    <!--   현재 시간 -->
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:gravity="center"
+        android:text="00시 날씨"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+    <!--날씨별 이미지-->
+    <ImageView
+        android:id="@+id/img_weather"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_sun" />
+
+    <!--    기온 : temp -->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 기온 : " />
+
+        <TextView
+            android:id="@+id/tv_temp"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!--    어제 기온 : temp yes -->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 어제 기온 : " />
+
+        <TextView
+            android:id="@+id/tv_temp_yes"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!--    강수확률 : percipitation pro-->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 강수확률 : " />
+
+        <TextView
+            android:id="@+id/tv_precipitation_pro"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!--    강수량:precipitation-->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 강수량 : " />
+
+        <TextView
+            android:id="@+id/tv_precipitation"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!-- 습도 : humidity-->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 습도 : " />
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!-- 풍향 : wind dir -->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 풍향 : " />
+
+        <TextView
+            android:id="@+id/tv_wind_dir"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+    <!-- 풍속 : wind sp -->
+    <LinearLayout
+        style="@style/MainRvLinearStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• 풍속 : " />
+
+        <TextView
+            android:id="@+id/tv_wind_sp"
+            style="@style/MainRvTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+    </LinearLayout>
+
+</LinearLayout>
