@@ -1,10 +1,10 @@
 package com.example.hiweather_aos.mainWeatherService
 
 data class MainWeatherResponse(
-    val response: ResponseBody
+    val response: Response
 )
 
-data class ResponseBody(
+data class Response(
     val header: Header,
     val body: Body
 )
@@ -30,8 +30,7 @@ data class Item(
     val baseDate: String,
     val baseTime: String,
     val category: String,
+    val fcstValue: String,
     val nx: Int,
-    val ny: Int,
-    val obsrValue: String
+    val ny: Int
 )
-

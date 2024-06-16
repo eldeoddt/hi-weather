@@ -72,7 +72,7 @@
                 />
 
             <TextView
-                android:id="@+id/main_temp_high"
+                android:id="@+id/tv_tmx"
                 style="@style/MainTempStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="최저 : " />
             <TextView
-                android:id="@+id/main_temp_low"
+                android:id="@+id/tv_tmn"
                 style="@style/MainTempStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

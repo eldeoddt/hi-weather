@@ -1,5 +1,5 @@
-import com.example.hiweather_aos.mainWeatherService.ResponseBody
-import com.example.hiweather_aos.tempService.TempResponse
+package com.example.hiweather_aos.tempService
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
