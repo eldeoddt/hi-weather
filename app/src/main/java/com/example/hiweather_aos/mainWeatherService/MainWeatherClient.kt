@@ -1,5 +1,7 @@
 package com.example.hiweather_aos.mainWeatherService
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,10 +19,14 @@ object MainWeatherClient {
         .build()
 
     val instance: MainWeatherService by lazy {
+        val gson: Gson = GsonBuilder()
+            .setLenient()
+            .create()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
         retrofit.create(MainWeatherService::class.java)

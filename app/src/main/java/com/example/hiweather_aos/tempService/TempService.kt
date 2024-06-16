@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface TempService {
     @GET("getUltraSrtNcst")
-    suspend fun getWeather(
+    suspend fun getTemp(
         @Query("serviceKey") serviceKey: String,
         @Query("dataType") dataType: String,
         @Query("numOfRows") numOfRows: Int,
@@ -15,5 +15,5 @@ interface TempService {
         @Query("base_time") baseTime: String,
         @Query("nx") nx: Int,
         @Query("ny") ny: Int
-    ): Response<ResponseBody>
+    ): ResponseBody
 }

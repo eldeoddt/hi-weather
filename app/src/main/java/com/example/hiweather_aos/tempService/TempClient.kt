@@ -18,9 +18,8 @@ object TempClient {
         .addInterceptor(loggingInterceptor)
         .build()
 
-    val gson = GsonBuilder().setLenient().create()
-
     val instance: TempService by lazy {
+        val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

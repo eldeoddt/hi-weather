@@ -1,5 +1,6 @@
 package com.example.hiweather_aos.mainWeatherService
 
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,5 +16,5 @@ interface MainWeatherService {
         @Query("base_time") baseTime: String,
         @Query("nx") nx: Int,
         @Query("ny") ny: Int
-    ): Response<MainWeatherResponse>
+    ): ResponseBody
 }
