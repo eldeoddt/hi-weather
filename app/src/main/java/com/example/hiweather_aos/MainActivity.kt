@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = ViewPagerAdapter(this, fragments)
         viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

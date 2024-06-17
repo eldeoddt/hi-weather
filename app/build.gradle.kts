@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,4 +70,31 @@ dependencies {
 
     // loggin interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+    // tikxml
+    implementation("com.tickaroo.tikxml:annotation:0.8.13")
+    implementation("com.tickaroo.tikxml:core:0.8.13")
+    implementation("com.tickaroo.tikxml:retrofit-converter:0.8.13")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+
+    //kapt
+    kapt ("com.tickaroo.tikxml:processor:0.8.13") // plugin
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+
+    // multidex
+    implementation("androidx.multidex:multidex:2.0.1")
+
+    // google login
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    //firestore
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
 }

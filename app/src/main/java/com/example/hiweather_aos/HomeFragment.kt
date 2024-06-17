@@ -52,6 +52,12 @@ class HomeFragment : Fragment() {
         fetchMinMaxTemp()// 최고, 최저온도 불러오기
         fetchWeatherData() // 리사이클러뷰 데이터 블러오기
 
+        // 새로고침 버튼
+        binding.btnRefresh.setOnClickListener {
+            fetchMinMaxTemp()
+            fetchWeatherData()
+            fetchTempData()
+        }
     }
 
     /**
@@ -105,7 +111,7 @@ class HomeFragment : Fragment() {
                 val mainWeatherResponse = gson.fromJson(responseBodyString, MainWeatherResponse::class.java)
                 if(mainWeatherResponse != null && mainWeatherResponse.response != null && mainWeatherResponse.response.body != null) {
                     val items = mainWeatherResponse.response.body.items.item
-                    val weatherItems = parseWeatherItems(items)
+                    val weatherItems = parseWeatherItems(items, getCurrentTime())
                     val weatherAdapter = WeatherAdapter(weatherItems) // 어댑터 객체 생성
                     binding.rvWeather.adapter = weatherAdapter // 어댑터 붙이기
 
@@ -126,11 +132,23 @@ class HomeFragment : Fragment() {
     /**
      * parse main weather = fetch weather data
      */
-    private fun parseWeatherItems(items: List<Item>): List<WeatherItem> {
+    private fun parseWeatherItems(items: List<Item>, currentTime: String): List<WeatherItem> {
         val weatherItems = mutableListOf<WeatherItem>()
         val groupedItems = items.groupBy { it.fcstTime }
 
-        for (time in groupedItems.keys.sorted()) {
+        // Convert current time to previous hour
+        val previousHour = when (currentTime.take(2).toInt()) {
+            in 1..2 -> "0000"
+            else -> String.format("%02d00", (currentTime.take(2).toInt() - 1))
+        }
+
+        // Create a list of the next 23 hours in HHMM format
+        val next23Hours = generateSequence(previousHour) { time ->
+            val nextHour = (time.take(2).toInt() + 1) % 24
+            String.format("%02d00", nextHour)
+        }.take(24).toList()
+
+        for (time in next23Hours) {
             val itemGroup = groupedItems[time] ?: continue
 
             val tmp = itemGroup.find { it.category == "TMP" }?.fcstValue ?: "-"
@@ -146,6 +164,7 @@ class HomeFragment : Fragment() {
 
         return weatherItems
     }
+
 
     /**
      * adjust time to request - fetch weather data

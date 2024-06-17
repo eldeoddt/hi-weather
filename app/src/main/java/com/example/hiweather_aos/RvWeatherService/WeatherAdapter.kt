@@ -39,7 +39,7 @@ class WeatherAdapter(private val weatherList: List<WeatherItem>) :
             4 -> holder.sky.setBackgroundResource(R.drawable.ic_dim) // Replace with your dim image resource
             else -> holder.sky.setBackgroundResource(R.drawable.ic_sun) // Replace with your default image resource
         }
-        holder.time.text = weatherItem.time
+        holder.time.text = "${weatherItem.time.substring(0, 1)}시"
         holder.tmp.text = weatherItem.tmp
         holder.pop.text = weatherItem.pop
         holder.pty.text = weatherItem.pty
