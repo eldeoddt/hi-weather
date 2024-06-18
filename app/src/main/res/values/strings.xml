@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HiWeather_AOS</string>
+    <string name="default_client_id">553935171023-1qp05br3tapnpiq94t10qts26e8msl43.apps.googleusercontent.com</string>
 </resources>

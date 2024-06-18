@@ -49,21 +49,26 @@
         style="@style/LoginBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="구글로 로그인" />
+        android:text="Google로 로그인" />
+
+    <Button
+        android:id="@+id/btn_twitter_login"
+        style="@style/LoginBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Twitter로 로그인" />
 
     <Button
         android:id="@+id/btn_register"
         style="@style/LoginBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="회원가입하기" />
+        android:text="회원가입" />
 
     <Button
         style="@style/LoginBtnStyle"
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_bold"
         android:text="로그아웃" />
 </LinearLayout>

@@ -35,7 +35,7 @@
     <!--  Login button style-->
     <style name="LoginBtnStyle">
         <item name="android:layout_margin">4dp</item>
-        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">14sp</item>
     </style>
 </resources>
