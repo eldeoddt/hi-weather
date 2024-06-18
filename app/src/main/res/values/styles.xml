@@ -15,6 +15,7 @@
     <!--    main rv linear style-->
     <style name="MainRvLinearStyle">
         <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_gravity">left</item>
     </style>
 
     <!--    main textview style -->
@@ -27,8 +28,14 @@
     <!--    main temp style -->
     <style name="MainTempStyle">
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/color_black</item>
     </style>
 
+    <!--  Login button style-->
+    <style name="LoginBtnStyle">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

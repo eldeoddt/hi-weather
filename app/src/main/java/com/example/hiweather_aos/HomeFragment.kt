@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.hiweather_aos.RvWeatherService.WeatherAdapter
@@ -57,13 +58,14 @@ class HomeFragment : Fragment() {
             fetchMinMaxTemp()
             fetchWeatherData()
             fetchTempData()
+            Toast.makeText(context, "새로고침 완료.", Toast.LENGTH_SHORT).show()
         }
     }
 
     /**
      * fetch rv weather data - 단기예보
      */
-    fun fetchWeatherData() {
+    private fun fetchWeatherData() {
         val serviceKey = "NbNN1unD+iIkxInJJnWYzOMcfOGodI7Rggle84PcNGdjVbFhgt/5S1JEcPLKM3ycoWZYfdYELKgzuIdTwOykeQ=="
         val dataType = "json"
         var numOfRows = 350
@@ -106,15 +108,20 @@ class HomeFragment : Fragment() {
                 val responseBodyString = response.string()  // 응답을 문자열로 변환
                 Log.d("fraglog", "rv  --- Response Body: $responseBodyString")  // 응답을 로그로 출력
 
-                // JSON 파싱
+                // JSON 파싱 및 데이터 필터링
                 val gson = Gson()
                 val mainWeatherResponse = gson.fromJson(responseBodyString, MainWeatherResponse::class.java)
-                if(mainWeatherResponse != null && mainWeatherResponse.response != null && mainWeatherResponse.response.body != null) {
+                if (mainWeatherResponse != null && mainWeatherResponse.response != null && mainWeatherResponse.response.body != null) {
                     val items = mainWeatherResponse.response.body.items.item
-                    val weatherItems = parseWeatherItems(items, getCurrentTime())
+                    // 필터링: 필요한 데이터만 유지
+                    val filteredItems = items.filter {
+                        it.category == "TMP" || it.category == "POP" || it.category == "PTY" ||
+                                it.category == "REH" || it.category == "SKY" || it.category == "VEC" ||
+                                it.category == "WSD"
+                    }
+                    val weatherItems = parseWeatherItems(filteredItems, getCurrentTime())
                     val weatherAdapter = WeatherAdapter(weatherItems) // 어댑터 객체 생성
                     binding.rvWeather.adapter = weatherAdapter // 어댑터 붙이기
-
                 } else {
                     Log.e("fraglog", "rv --- Response body is null or malformed")
                 }
@@ -128,6 +135,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
     /**
      * parse main weather = fetch weather data
@@ -186,7 +194,7 @@ class HomeFragment : Fragment() {
         var adjustedTime = timeMapping[currentTime] ?: currentTime // 매핑 적용
 
         // 1시 2시 또는 3시이면 요청 날짜를 어제로 변경한다.
-        if (currentTime == "0100" || currentTime == "0200" || currentTime == "0300") {
+        if (currentTime == "0000" || currentTime == "0100" || currentTime == "0200" || currentTime == "0300") {
             adjustedDate = getYesterdayDate()
         }
 
@@ -244,10 +252,17 @@ class HomeFragment : Fragment() {
                 val responseBodyString = response.string()  // 응답을 문자열로 변환
                 Log.d("fraglog", "min max --- Response Body: $responseBodyString")  // 응답을 로그로 출력
 
-                // JSON 파싱
+                // JSON 파싱 및 데이터 필터링
                 val gson = Gson()
                 val mainWeatherResponse = gson.fromJson(responseBodyString, MainWeatherResponse::class.java)
-                displayMinMaxData(mainWeatherResponse)
+
+                // 필요한 데이터만 필터링
+                val filteredItems = mainWeatherResponse.response.body.items.item.filter {
+                    it.category == "TMN" || it.category == "TMX"
+                }
+
+                // 필터링된 데이터로 display 함수 호출
+                displayMinMaxData(filteredItems)
 
             } catch (e: HttpException) {
                 Log.e("fraglog", "min max --- Network call failed: ${e.message()}")
@@ -263,9 +278,9 @@ class HomeFragment : Fragment() {
     /**
      * display min max data
      */
-    private fun displayMinMaxData(Response: MainWeatherResponse) {
-        val tmnItem = Response.response.body.items.item.find { it.category == "TMN" }
-        val tmxItem = Response.response.body.items.item.find { it.category == "TMX" }
+    private fun displayMinMaxData(items: List<Item>) {
+        val tmnItem = items.find { it.category == "TMN" }
+        val tmxItem = items.find { it.category == "TMX" }
         val tmnValue = tmnItem?.fcstValue ?: "N/A"
         val tmxValue = tmxItem?.fcstValue ?: "N/A"
         Log.d("fraglog", "TMN: $tmnValue, TMX: $tmxValue")
@@ -298,11 +313,22 @@ class HomeFragment : Fragment() {
         val dataType = "json"
         val numOfRows = 10
         val pageNo = 1
-        val baseDate = getCurrentDate()
+        var baseDate = getCurrentDate()
         val baseTime = getAdjustedTime()
         Log.d("fraglog", "temp --- base time: $baseTime")
         val nx = 55
         val ny = 127
+
+        // 00시이고 40분 미만인 경우 하루 전 날짜로 변경하기.
+        val currentTime = getCurrentTime()
+        val hour = currentTime.substring(0, 2).toInt()
+        val minute = currentTime.substring(2, 4).toInt()
+
+        if (hour == 0 && minute <= 40) {
+            // mm이 40 미만, 00시이면 어제 날짜로 변경 "yyyymmdd"
+            baseDate = getYesterdayDate()
+        }
+
 
         lifecycleScope.launch {
             try {

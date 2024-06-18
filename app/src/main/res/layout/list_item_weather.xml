@@ -6,7 +6,7 @@
     android:background="@drawable/layout_background"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="4dp">
 
 
 
@@ -15,7 +15,7 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_medium"
+        android:fontFamily="@font/pretendard_bold"
         android:gravity="center"
         android:text="00시 날씨"
         android:layout_margin="8dp"
@@ -24,8 +24,8 @@
     <!--날씨별 이미지-->
     <ImageView
         android:id="@+id/img_weather"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:src="@drawable/ic_sun" />
 
     <!--    기온 : temp -->
@@ -33,13 +33,14 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 기온 : " />
 
         <TextView
@@ -55,7 +56,8 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -77,13 +79,14 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 강수확률 : " />
 
         <TextView
@@ -99,13 +102,14 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 강수량 : " />
 
         <TextView
@@ -121,12 +125,14 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 습도 : " />
 
         <TextView
@@ -142,13 +148,14 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 풍향 : " />
 
         <TextView
@@ -164,13 +171,15 @@
         style="@style/MainRvLinearStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
+        android:paddingBottom="4dp"
         android:orientation="horizontal">
 
         <TextView
             style="@style/MainRvTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:text="• 풍속 : " />
 
         <TextView

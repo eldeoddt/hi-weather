@@ -33,13 +33,15 @@ class WeatherAdapter(private val weatherList: List<WeatherItem>) :
         val weatherItem = weatherList[position]
         // 하늘 상태에 따라 아이콘 설정
         val skyValue = weatherItem.sky.toIntOrNull()
+        Log.d("fraglog", "main weather adapter --- sky value: $skyValue")
         when (skyValue) {
-            1 -> holder.sky.setBackgroundResource(R.drawable.ic_sun) // Replace with your sun image resource
-            3 -> holder.sky.setBackgroundResource(R.drawable.ic_cloudy) // Replace with your cloudy image resource
-            4 -> holder.sky.setBackgroundResource(R.drawable.ic_dim) // Replace with your dim image resource
-            else -> holder.sky.setBackgroundResource(R.drawable.ic_sun) // Replace with your default image resource
+
+            1 -> holder.sky.setImageResource(R.drawable.ic_sun) // Replace with your sun image resource
+            3 -> holder.sky.setImageResource(R.drawable.ic_cloudy) // Replace with your cloudy image resource
+            4 -> holder.sky.setImageResource(R.drawable.ic_dim) // Replace with your dim image resource
+            else -> holder.sky.setImageResource(R.drawable.ic_sun) // Replace with your default image resource
         }
-        holder.time.text = "${weatherItem.time.substring(0, 1)}시"
+        holder.time.text = "${weatherItem.time.substring(0, 2)}시"
         holder.tmp.text = weatherItem.tmp
         holder.pop.text = weatherItem.pop
         holder.pty.text = weatherItem.pty
