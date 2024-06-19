@@ -59,4 +59,11 @@
         <item name="android:fontFamily">@font/pretendard_medium</item>
         <item name="android:textSize">11sp</item>
     </style>
+
+    <!--    into title Style -->
+    <style name="InfoTitleStyle">
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_ic_select</item>
+    </style>
 </resources>

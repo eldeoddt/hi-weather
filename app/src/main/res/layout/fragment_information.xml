@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:orientation="vertical">
 
 
@@ -28,8 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginLeft="16dp"
-                    style="@style/PostRvCommentStyle"
-                    android:fontFamily="@font/pretendard_medium"
+                    style="@style/InfoTitleStyle"
                     android:text="• 시간별 기온 그래프" />
 
                 <com.github.mikephil.charting.charts.LineChart
@@ -44,8 +43,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                style="@style/PostRvCommentStyle"
-                android:fontFamily="@font/pretendard_medium"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="2dp"
+                style="@style/InfoTitleStyle"
                 android:text="• 관련 영상" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
