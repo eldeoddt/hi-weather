@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hiweather_aos.RvWeatherService.WeatherAdapter
 import com.example.hiweather_aos.RvWeatherService.WeatherItem
@@ -60,7 +61,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchTempData() // 현재 온도, 강수량 불러오기
-        binding.tvDate.text = getCurrentMainTime() // 메인 날짜 설정
+
+        // preference에 따라 tvdate 보이게 하기
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        updateTimeVisibility()
+
+        // 설정 바뀔 때 update time visibility한다.
+        sharedPreferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+            if (key == "time_visibility_preference") {
+                updateTimeVisibility()
+            }
+        }
         fetchMinMaxTemp()// 최고, 최저온도 불러오기
         fetchWeatherData() // 리사이클러뷰 데이터 블러오기
 
@@ -73,6 +84,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * preference에 따라 time 가시성 설정
+     */
+    private fun updateTimeVisibility() {
+        val isTimeVisible = sharedPreferences.getBoolean("time_visibility_preference", true)
+        Log.d("fraglog", "shared -- time -- : $isTimeVisible")
+        binding.tvDate.visibility = if (isTimeVisible) View.VISIBLE else View.INVISIBLE
+        binding.tvDate.text = getCurrentMainTime() // 메인 날짜 설정
+    }
     override fun onDestroy() {
         super.onDestroy()
         if (::sharedPreferences.isInitialized) {

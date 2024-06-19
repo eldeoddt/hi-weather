@@ -20,7 +20,7 @@
     <ListPreference
         android:key="text_size_preference"
         android:title="글씨 크기"
-        android:summary="글씨 크기를 선택하세요"
+        android:summary="글씨 크기를 선택하세요."
         android:defaultValue="normal"
         android:entries="@array/text_size_options"
         android:entryValues="@array/text_size_values" />
@@ -28,35 +28,23 @@
     <ListPreference
         android:key="wind_direction_language_preference"
         android:title="풍향 표기"
-        android:summary="풍향 표기 방식을 선택하세요"
+        android:summary="풍향 표기 방식을 선택하세요."
         android:defaultValue="english"
         android:entries="@array/wind_direction_language_options"
         android:entryValues="@array/wind_direction_language_values" />
 
+<!--시간 표시-->
     <SwitchPreferenceCompat
-        android:key="example_switch"
-        android:title="Enable Feature"
-        android:summary="Enable or disable a specific feature"
-        android:defaultValue="false" />
+        android:key="time_visibility_preference"
+        android:title="시간 표시"
+        android:summary="시간을 표시하거나 숨깁니다."
+        android:defaultValue="true" />
 
-    <ListPreference
-        android:key="example_list"
-        android:title="Select Option"
-        android:summary="Select one of the options"
-        android:entries="@array/example_list_entries"
-        android:entryValues="@array/example_list_values"
-        android:defaultValue="1" />
 
     <EditTextPreference
         android:key="example_text"
-        android:title="Enter Text"
-        android:summary="Enter some text"
+        android:title="위치 설정하기"
+        android:summary="원하는 위치를 설정하세요."
         android:defaultValue="" />
-
-    <SwitchPreferenceCompat
-        android:key="another_switch"
-        android:title="Another Switch"
-        android:summary="Another switch preference"
-        android:defaultValue="true" />
 
 </PreferenceScreen>

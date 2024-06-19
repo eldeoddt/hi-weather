@@ -20,6 +20,7 @@ class WeatherAdapter(private val weatherList: List<WeatherItem>, context: Contex
     private var selectedItems: Set<String> = emptySet() // 날씨 항목
     private var textSize: Float = 14f // 기본 글씨 크기
     private var vecStyle:String = "english" // 기본 풍향 스타일
+    private var isTimeVisible: Boolean = true // 기본 시간 보이게 하기
     init {
         loadPreferences(context) // preference 불러오기
         notifyDataSetChanged()

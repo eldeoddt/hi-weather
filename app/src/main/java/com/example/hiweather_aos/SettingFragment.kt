@@ -9,6 +9,7 @@ import androidx.preference.ListPreference
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hiweather_aos.Activity.LoginActivity
@@ -22,6 +23,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     private lateinit var weatherItemsPreference: MultiSelectListPreference
     private lateinit var textSizePreferences: ListPreference
     private lateinit var vecStylePreference: ListPreference
+    private lateinit var timeVisibilityPreference:SwitchPreferenceCompat
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -42,6 +44,10 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         // vec style
         vecStylePreference = findPreference("wind_direction_language_preference")!!
         updateVecStylePreference()
+
+        // time visibleity
+        timeVisibilityPreference = findPreference("time_visibility_preference")!!
+        updateTimeVisibilityPreference()
 
         loginPreference.setOnPreferenceClickListener {
             // 로그인 페이지로 이동
@@ -67,6 +73,10 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
             updateWeatherItemsPreference()
         } else if (key == "text_size_preference") {
             upadateTextSizePreference()
+        } else if (key == "wind_direction_language_preference"){
+            updateVecStylePreference()
+        } else if (key == "time_visibility_preference") {
+            updateTimeVisibilityPreference()
         }
     }
 
@@ -105,5 +115,18 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         val editor = sharedPreferences.edit()
         editor.putString("wind_direction_language_preference", vecStyle)
         editor.apply()
+    }
+
+    /**
+     * update time visibility
+     */
+    private fun updateTimeVisibilityPreference() {
+//        val timeVisibility = timeVisibilityPreference
+//        Log.d("adapter", "setting vec style -- ${vecStylePreference.value}")
+//        Toast.makeText(requireContext(), "풍향 언어 : ${vecStylePreference.value}", Toast.LENGTH_SHORT).show()
+//        // 선택된 항목을 저장
+//        val editor = sharedPreferences.edit()
+//        editor.putString("wind_direction_language_preference", vecStyle)
+//        editor.apply()
     }
 }
