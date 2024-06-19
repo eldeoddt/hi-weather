@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hiweather_aos.databinding.ActivityMainBinding
+import com.example.hiweather_aos.post.PostFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding

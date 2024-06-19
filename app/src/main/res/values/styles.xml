@@ -38,4 +38,25 @@
         <item name="android:fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <!--    PostRvCommentStyle -->
+    <style name="PostRvCommentStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+
+    <!--    PostRvTitleStyle -->
+    <style name="PostRvTitleStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/color_ic</item>
+    </style>
+
+    <!--  Post button style-->
+    <style name="PostBtnStyle">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

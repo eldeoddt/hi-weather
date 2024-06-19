@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:textSize="16dp"
+        android:textColor="@color/color_black"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="게시물 작성하기" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:background="#40878787"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/PostRvCommentStyle"
+        android:padding="16dp"
+        android:text="작성자 ID" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/PostRvCommentStyle"
+            android:text="날씨 : " />
+
+        <EditText
+            android:id="@+id/weather"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:inputType="textShortMessage"
+            style="@style/PostRvCommentStyle"
+            android:hint="맑음"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="start|top"
+        android:hint="내용"
+        style="@style/PostRvCommentStyle"
+        android:inputType="textMultiLine" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:background="#40878787" />
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload_button"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        style="@style/PostBtnStyle"
+        android:text="이미지 불러오기" />
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cam_button"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        style="@style/PostBtnStyle"
+        android:text="촬영하기" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:id="@+id/addImageView"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="130dp"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/PostBtnStyle"
+        android:text="저장하기" />
+</LinearLayout>
