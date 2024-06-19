@@ -81,14 +81,6 @@
         style="@style/PostBtnStyle"
         android:text="이미지 불러오기" />
 
-    <Button
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/cam_button"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        style="@style/PostBtnStyle"
-        android:text="촬영하기" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -106,4 +98,18 @@
         android:layout_gravity="center"
         style="@style/PostBtnStyle"
         android:text="저장하기" />
+    <TextView
+        android:id="@+id/tv_post_prev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/PostRvCommentStyle"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="이전에 불러온 이미지" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:id="@+id/iv_post_prev" />
 </LinearLayout>

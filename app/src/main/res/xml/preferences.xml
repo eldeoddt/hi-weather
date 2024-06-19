@@ -5,7 +5,8 @@
     <Preference
         android:key="login_preference"
         android:title="로그인"
-        android:summary="로그인하거나 로그아웃합니다." />
+        android:summary="로그인하거나 로그아웃합니다."
+        style="@style/MainTempStyle"/>
 
     <!-- 날씨 항목 선택 -->
     <MultiSelectListPreference
