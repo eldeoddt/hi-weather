@@ -7,7 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.example.hiweather_aos.databinding.FragmentInformationBinding
+import com.example.hiweather_aos.information.WeatherImgClient
+import com.example.hiweather_aos.information.WeatherImgResponse
 import com.example.hiweather_aos.mainWeatherService.MainWeatherClient
 import com.example.hiweather_aos.mainWeatherService.MainWeatherResponse
 import com.github.mikephil.charting.components.XAxis
@@ -19,14 +25,19 @@ import com.google.gson.Gson
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.HttpException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+
 
 class InformationFragment : Fragment() {
     lateinit var binding: FragmentInformationBinding
@@ -36,10 +47,73 @@ class InformationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentInformationBinding.inflate(inflater, container, false)
-        fetchWeatherData()
-        setupYouTubePlayer()
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchWeatherData()
+        setupYouTubePlayer()
+        fetchSatelliteImage() // 이미지 불러오기
+    }
+
+    private fun fetchSatelliteImage() {
+        val serviceKey = "NbNN1unD+iIkxInJJnWYzOMcfOGodI7Rggle84PcNGdjVbFhgt/5S1JEcPLKM3ycoWZYfdYELKgzuIdTwOykeQ=="
+        val numOfRows = 10
+        val pageNo = 1
+        val sat = "g2"
+        val data = "rgbt"
+        val area = "ko"
+        val time = getYesterdayDate()
+        val dataType = "json"
+
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    WeatherImgClient.instance.getSatelliteImages(
+                        serviceKey, numOfRows, pageNo, sat, data, area, time, dataType
+                    )
+                }
+
+                val responseBodyString = response.body()?.string()
+                Log.d("InformationFragment", "img -- Response Body: $responseBodyString")
+
+                val gson = Gson()
+                val weatherImgResponse = gson.fromJson(responseBodyString, WeatherImgResponse::class.java)
+                if (weatherImgResponse != null && weatherImgResponse.response.body != null) {
+                    val items = weatherImgResponse.response.body.items.item
+                    if (!items.isNullOrEmpty()) {
+                        val satImgCFile = items[0].satImgCFile
+                        if (!satImgCFile.isNullOrBlank()) {
+                            val imageUrl = satImgCFile.split(",")[0].trim().replace("[", "").replace("]", "")
+                            Log.d("InformationFragment", "Image URL: $imageUrl")
+
+                            withContext(Dispatchers.Main) {
+                                Glide.with(this@InformationFragment)
+                                    .load(imageUrl)
+                                    .into(binding.ivInfoImg)
+                            }
+                        } else {
+                            Log.e("InformationFragment", "satImgCFile is null or blank")
+                        }
+                    } else {
+                        Log.e("InformationFragment", "Items are null or empty")
+                    }
+                } else {
+                    Log.e("InformationFragment", "Response body is null or malformed")
+                }
+            } catch (e: HttpException) {
+                Log.e("InformationFragment", "Network call failed: ${e.message()}")
+                e.printStackTrace()
+            } catch (e: Exception) {
+                Log.e("InformationFragment", "Unexpected error: ${e.message}")
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
 
     private fun setupYouTubePlayer() {
         lifecycle.addObserver(binding.youtubePlayerView)

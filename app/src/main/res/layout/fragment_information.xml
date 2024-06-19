@@ -53,6 +53,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:layout_margin="16dp" />
+
+            <TextView
+                android:id="@+id/tv_info_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                style="@style/InfoTitleStyle"
+                android:text="• 어제의 위성 이미지" />
+            <ImageView
+                android:id="@+id/iv_info_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"/> 
         </LinearLayout>
     </ScrollView>
 
