@@ -7,6 +7,24 @@
         android:title="로그인"
         android:summary="로그인하거나 로그아웃합니다." />
 
+    <!-- 날씨 항목 선택 -->
+    <MultiSelectListPreference
+        android:key="weather_items_preference"
+        android:title="날씨 항목 선택"
+        android:summary="표시할 날씨 항목을 선택하세요."
+        android:entries="@array/weather_items"
+        android:entryValues="@array/weather_item_values"
+        android:defaultValue="@array/weather_item_values"/>
+
+    <!--글씨 크기 선택 -->
+    <ListPreference
+        android:key="text_size_preference"
+        android:title="글씨 크기"
+        android:summary="글씨 크기를 선택하세요"
+        android:defaultValue="normal"
+        android:entries="@array/text_size_options"
+        android:entryValues="@array/text_size_values" />
+
     <SwitchPreferenceCompat
         android:key="example_switch"
         android:title="Enable Feature"

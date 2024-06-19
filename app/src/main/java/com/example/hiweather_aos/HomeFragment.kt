@@ -1,5 +1,7 @@
 package com.example.hiweather_aos
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hiweather_aos.RvWeatherService.WeatherAdapter
 import com.example.hiweather_aos.RvWeatherService.WeatherItem
 import com.example.hiweather_aos.databinding.FragmentHomeBinding
@@ -37,7 +40,15 @@ import java.util.TimeZone
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
+    private lateinit var weatherAdapter: WeatherAdapter
+    private lateinit var sharedPreferences: SharedPreferences
     var isRain:Boolean = false
+
+    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        if (key != null) {
+            weatherAdapter.notifyDataSetChanged()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,7 +69,14 @@ class HomeFragment : Fragment() {
             fetchMinMaxTemp()
             fetchWeatherData()
             fetchTempData()
-            Toast.makeText(context, "새로고침 완료.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "새로고침 완료!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (::sharedPreferences.isInitialized) {
+            sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
         }
     }
 
@@ -120,7 +138,13 @@ class HomeFragment : Fragment() {
                                 it.category == "WSD"
                     }
                     val weatherItems = parseWeatherItems(filteredItems, getCurrentTime())
-                    val weatherAdapter = WeatherAdapter(weatherItems) // 어댑터 객체 생성
+
+                    // sharedpreferences 객체 생성
+                    sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+
+                    weatherAdapter = WeatherAdapter(weatherItems, requireContext()) // 어댑터 객체 생성
+                    binding.rvWeather.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.rvWeather.adapter = weatherAdapter // 어댑터 붙이기
                 } else {
                     Log.e("fraglog", "rv --- Response body is null or malformed")
@@ -288,8 +312,8 @@ class HomeFragment : Fragment() {
         val tmnValueStr = tmnValue.split(".")[0] // 소수점 제거
         val tmxValueStr = tmxValue.split(".")[0]
         activity?.runOnUiThread {
-            binding.tvTmn.text = "$tmnValueStr"
-            binding.tvTmx.text = "$tmxValueStr"
+            binding.tvTmn.text = "${tmnValueStr}°"
+            binding.tvTmx.text = "${tmxValueStr}°"
         }
     }
 
@@ -464,14 +488,16 @@ class HomeFragment : Fragment() {
      * get Time for main time view
      */
     private fun getCurrentMainTime(): String {
-        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault())
         dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
         val dateStr = dateFormat.format(Date())
 
         val year = dateStr.substring(0, 4)
         val month = dateStr.substring(4, 6)
         val day = dateStr.substring(6, 8)
+        val hour = dateStr.substring(8,10)
+        val min = dateStr.substring(10,12)
 
-        return "${year}년 ${month}월 ${day}일"
+        return "${year}년 ${month}월 ${day}일 ${hour}:${min}"
     }
 }

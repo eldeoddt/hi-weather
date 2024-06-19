@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                         // 로그인 성공 시 실행
                         if(task.isSuccessful){
                             Toast.makeText(baseContext,"구글 로그인 성공",Toast.LENGTH_SHORT).show()
-                            Log.d("loginact", "구글 로그인 성공")
+                            Log.d("loginact", "구글 로그인 성공\n${auth.currentUser?.email} 님 안녕하세요!")
                             finish()
                         }
                         else{ // 로그인 실패 시 실행
@@ -115,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(
-                            baseContext, "로그인에 성공하였습니다.",
+                            baseContext, "로그인에 성공하였습니다.\n${auth.currentUser?.email} 님 안녕하세요!",
                             Toast.LENGTH_SHORT
                         ).show()
                         moveMainPage(auth.currentUser)
