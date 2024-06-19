@@ -107,4 +107,7 @@ dependencies {
 
     // youtube
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
+    //kakao map
+    implementation("com.kakao.maps.open:android:2.9.5")
 }

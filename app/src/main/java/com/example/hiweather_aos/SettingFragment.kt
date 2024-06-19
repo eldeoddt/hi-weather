@@ -25,6 +25,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     private lateinit var vecStylePreference: ListPreference
     private lateinit var timeVisibilityPreference:SwitchPreferenceCompat
     private lateinit var postNumPreference: Preference
+    private lateinit var mapPreference: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -52,6 +53,9 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         // post num
         postNumPreference = findPreference("post_num_preference")!!
 
+        // map
+        mapPreference = findPreference("map_preference")!!
+
         loginPreference.setOnPreferenceClickListener {
             // 로그인 페이지로 이동
             val intent = Intent(activity, LoginActivity::class.java)
@@ -66,6 +70,12 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
             true
         }
 
+        mapPreference.setOnPreferenceClickListener {
+            // 지도 페이지로 이동
+            val intent = Intent(activity, MapActivity::class.java)
+            startActivity(intent)
+            true
+        }
     }
 
     override fun onResume() {

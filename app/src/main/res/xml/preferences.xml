@@ -45,6 +45,11 @@
     <Preference
         android:key="post_num_preference"
         android:title="도로명주소 찾기"
-        android:summary="지번주소, 도로명주소, 우편번호를 찾아보세요." />
+        android:summary="지번주소, 도로명주소를 찾아보세요." />
+
+    <Preference
+        android:key="map_preference"
+        android:title="지도 보기"
+        android:summary="지도를 확인해보세요." />
 
 </PreferenceScreen>
