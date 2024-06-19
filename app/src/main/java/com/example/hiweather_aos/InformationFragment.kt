@@ -16,6 +16,8 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.gson.Gson
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +37,21 @@ class InformationFragment : Fragment() {
     ): View? {
         binding = FragmentInformationBinding.inflate(inflater, container, false)
         fetchWeatherData()
+        setupYouTubePlayer()
         return binding.root
+    }
+
+    private fun setupYouTubePlayer() {
+        lifecycle.addObserver(binding.youtubePlayerView)
+
+        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                // 여기에 원하는 YouTube 비디오 ID를 입력합니다.
+//                val videoId = "dQw4w9WgXcQ"
+                val videoId = "ryRIrmtV3CQ"
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        })
     }
 
     private fun fetchWeatherData() {

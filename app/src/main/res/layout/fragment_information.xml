@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:orientation="vertical">
 
 
@@ -26,8 +26,9 @@
                     android:id="@+id/tv_graph"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    style="@style/MainTempStyle"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginLeft="16dp"
+                    style="@style/PostRvCommentStyle"
                     android:fontFamily="@font/pretendard_medium"
                     android:text="• 시간별 기온 그래프" />
 
@@ -37,6 +38,21 @@
                     android:layout_height="match_parent"
                     android:layout_margin="16dp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_youtube"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                style="@style/PostRvCommentStyle"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="• 관련 영상" />
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtubePlayerView"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_margin="16dp" />
         </LinearLayout>
     </ScrollView>
 

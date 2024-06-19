@@ -101,5 +101,6 @@ dependencies {
     // graph
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
-    //
+    // youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

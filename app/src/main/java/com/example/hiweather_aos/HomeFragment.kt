@@ -1,5 +1,7 @@
 package com.example.hiweather_aos
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -80,6 +83,7 @@ class HomeFragment : Fragment() {
         }
         fetchMinMaxTemp()// 최고, 최저온도 불러오기
         fetchWeatherData() // 리사이클러뷰 데이터 블러오기
+        setupImageViewAnimation()
 
         // 새로고침 버튼
         binding.btnRefresh.setOnClickListener {
@@ -88,6 +92,16 @@ class HomeFragment : Fragment() {
             fetchTempData()
             Toast.makeText(context, "새로고침 완료!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun setupImageViewAnimation() {
+        val imageView = binding.ivMainSky
+        val rotateAnimation = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f).apply {
+            duration = 4000 // 애니메이션 시간 (ms)
+            repeatCount = ValueAnimator.INFINITE // 무한 반복
+            interpolator = AccelerateDecelerateInterpolator() // 일정하지 않은 속도로 회전
+        }
+        rotateAnimation.start()
     }
 
     override fun onResume() {
