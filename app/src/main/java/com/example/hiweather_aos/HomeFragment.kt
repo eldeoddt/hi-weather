@@ -62,6 +62,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // 10초 후에 알림 보내기
+        Handler(Looper.getMainLooper()).postDelayed({
+            NotificationHelper.sendNotification(requireContext())
+        }, 10000)
         return binding.root
     }
 
@@ -97,7 +102,7 @@ class HomeFragment : Fragment() {
     private fun setupImageViewAnimation() {
         val imageView = binding.ivMainSky
         val rotateAnimation = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f).apply {
-            duration = 4000 // 애니메이션 시간 (ms)
+            duration = 6000 // 애니메이션 시간 (ms)
             repeatCount = ValueAnimator.INFINITE // 무한 반복
             interpolator = AccelerateDecelerateInterpolator() // 일정하지 않은 속도로 회전
         }
