@@ -498,6 +498,6 @@ class HomeFragment : Fragment() {
         val hour = dateStr.substring(8,10)
         val min = dateStr.substring(10,12)
 
-        return "${year}년 ${month}월 ${day}일 ${hour}:${min}"
+        return "${month}월 ${day}일 ${hour}:${min}"
     }
 }

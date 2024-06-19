@@ -25,6 +25,14 @@
         android:entries="@array/text_size_options"
         android:entryValues="@array/text_size_values" />
 
+    <ListPreference
+        android:key="wind_direction_language_preference"
+        android:title="풍향 표기"
+        android:summary="풍향 표기 방식을 선택하세요"
+        android:defaultValue="english"
+        android:entries="@array/wind_direction_language_options"
+        android:entryValues="@array/wind_direction_language_values" />
+
     <SwitchPreferenceCompat
         android:key="example_switch"
         android:title="Enable Feature"

@@ -42,4 +42,15 @@
         <item>large</item>
     </string-array>
 
+<!--    풍향 표기 방식-->
+    <string-array name="wind_direction_language_options">
+        <item>영어</item>
+        <item>한글</item>
+    </string-array>
+    <string-array name="wind_direction_language_values">
+        <item>english</item>
+        <item>korean</item>
+    </string-array>
+
+
 </resources>

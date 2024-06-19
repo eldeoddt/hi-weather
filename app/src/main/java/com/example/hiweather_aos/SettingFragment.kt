@@ -20,7 +20,8 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var loginPreference: Preference
     private lateinit var weatherItemsPreference: MultiSelectListPreference
-    lateinit var textSizePreferences: ListPreference
+    private lateinit var textSizePreferences: ListPreference
+    private lateinit var vecStylePreference: ListPreference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -37,6 +38,10 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         //text size
         textSizePreferences = findPreference("text_size_preference")!!
         upadateTextSizePreference()
+
+        // vec style
+        vecStylePreference = findPreference("wind_direction_language_preference")!!
+        updateVecStylePreference()
 
         loginPreference.setOnPreferenceClickListener {
             // 로그인 페이지로 이동
@@ -86,6 +91,19 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         Toast.makeText(requireContext(), "글씨 크기 : ${textSizePreferences.value}", Toast.LENGTH_SHORT).show()
         val editor = sharedPreferences.edit()
         editor.putString("text_size_preference", textSize)
+        editor.apply()
+    }
+
+    /**
+     * update vec style
+     */
+    fun updateVecStylePreference() {
+        val vecStyle = vecStylePreference.value
+        Log.d("adapter", "setting vec style -- ${vecStylePreference.value}")
+        Toast.makeText(requireContext(), "풍향 언어 : ${vecStylePreference.value}", Toast.LENGTH_SHORT).show()
+        // 선택된 항목을 저장
+        val editor = sharedPreferences.edit()
+        editor.putString("wind_direction_language_preference", vecStyle)
         editor.apply()
     }
 }

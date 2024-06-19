@@ -17,32 +17,47 @@ class WeatherAdapter(private val weatherList: List<WeatherItem>, context: Contex
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
     lateinit var sharedPreferences: SharedPreferences
-    var selectedItems: Set<String> = emptySet() // 날씨 항목
-    var textSize: Float = 14f // 기본 글씨 크기
+    private var selectedItems: Set<String> = emptySet() // 날씨 항목
+    private var textSize: Float = 14f // 기본 글씨 크기
+    private var vecStyle:String = "english" // 기본 풍향 스타일
     init {
-        loadWeatherItemsFromPreferences(context)
-        loadTextSizeFromPreferences(context)
+        loadPreferences(context) // preference 불러오기
+        notifyDataSetChanged()
     }
 
     /**
      * 선택한 아아템을 preferences에서 가져오기.
      */
-    private fun loadWeatherItemsFromPreferences(context: Context) {
+    private fun loadPreferences(context: Context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        selectedItems = sharedPreferences.getStringSet("selected_weather_items", emptySet()) ?: emptySet()
+        selectedItems = sharedPreferences.getStringSet("selected_weather_items", setOf()) ?: setOf()
         Log.d("adapter", "Weather adapter -- selected items: $selectedItems")
-    }
 
-    fun loadTextSizeFromPreferences(context: Context) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val textSizePreference = sharedPreferences.getString("text_size_preference", "normal")
         textSize = when (textSizePreference) {
             "small" -> 12f
             "large" -> 17f
             else -> 14f
         }
+        vecStyle = sharedPreferences.getString("wind_direction_language_preference", "english") ?: "english"
     }
 
+//    fun setWeatherItems(weatherItems: List<WeatherItem>) {
+//        this.weatherItems = weatherItems
+//        notifyDataSetChanged()
+//    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_weather, parent, false)
+        return WeatherViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
+        val weatherItem = weatherList[position]
+        holder.bind(weatherItem, selectedItems, textSize, vecStyle)
+    }
+
+    override fun getItemCount() = weatherList.size
     class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val time: TextView = itemView.findViewById(R.id.tv_time)
         val tmp: TextView = itemView.findViewById(R.id.tv_tmp)
@@ -52,88 +67,65 @@ class WeatherAdapter(private val weatherList: List<WeatherItem>, context: Contex
         val sky: ImageView = itemView.findViewById(R.id.img_weather)
         val vec: TextView = itemView.findViewById(R.id.tv_vec)
         val wsd: TextView = itemView.findViewById(R.id.tv_wsd)
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_weather, parent, false)
-        return WeatherViewHolder(view)
-    }
+        fun bind (weatherItem: WeatherItem, selectedItems: Set<String>, textSize: Float, vecStyle: String) {
+            Log.d("adapter", "weather adapter -- selected items : ${selectedItems}")
+            val showTmp = selectedItems.contains("tmp")
+            val showPop = selectedItems.contains("pop")
+            val showPty = selectedItems.contains("pty")
+            val showReh = selectedItems.contains("reh")
+            val showVec = selectedItems.contains("vec")
+            val showWsd = selectedItems.contains("wsd")
 
-    override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
-        val weatherItem = weatherList[position]
+            time.text = "${weatherItem.time.substring(0, 2)}시"
+            tmp.visibility = if (showTmp) View.VISIBLE else View.GONE
+            pop.visibility = if (showPop) View.VISIBLE else View.GONE
+            pty.visibility = if (showPty) View.VISIBLE else View.GONE
+            reh.visibility = if (showReh) View.VISIBLE else View.GONE
+            vec.visibility = if (showVec) View.VISIBLE else View.GONE
+            wsd.visibility = if (showWsd) View.VISIBLE else View.GONE
 
-        Log.d("adapter", "weather adapter -- selected items : ${selectedItems}")
-        // SharedPreferences에서 사용자가 선택한 항목을 확인
-        val showTmp = selectedItems.contains("tmp")
-        Log.d("adapter", "adapter -- show tmp의 bool $showTmp")
-        val showPop = selectedItems.contains("pop")
-        val showPty = selectedItems.contains("pty")
-        val showReh = selectedItems.contains("reh")
-        val showVec = selectedItems.contains("vec")
-        Log.d("adapter", "adapter -- show vec의 bool $showVec")
-        val showWsd = selectedItems.contains("wsd")
+            if (showTmp) tmp.text = "• 기온 : ${weatherItem.tmp}°"
+            if (showPop) pop.text = "• 강수확률 : ${weatherItem.pop}%"
+            if (showPty) pty.text = "• 강수량 : ${weatherItem.pty}mm"
+            if (showReh) reh.text = "• 습도 : ${weatherItem.reh}%"
+            if (showVec) vec.text = "• 풍향 : ${getWindDirection(weatherItem.vec.toInt(), vecStyle)}"
+            if (showWsd) wsd.text = "• 풍속 : ${weatherItem.wsd}m/s"
 
-        holder.time.text = "${weatherItem.time.substring(0, 2)}시"
+            // 하늘 상태에 따라 아이콘 설정
+            val skyValue = weatherItem.sky.toIntOrNull()
+            Log.d("fraglog", "main weather adapter --- sky value: $skyValue")
+            when (skyValue) {
+                1 -> sky.setImageResource(R.drawable.ic_sun)
+                3 -> sky.setImageResource(R.drawable.ic_cloudy)
+                4 -> sky.setImageResource(R.drawable.ic_dim)
+                else -> sky.setImageResource(R.drawable.ic_sun)
+            }
 
-        holder.tmp.visibility = if (showTmp) View.VISIBLE else View.GONE
-        holder.pop.visibility = if (showPop) View.VISIBLE else View.GONE
-        holder.pty.visibility = if (showPty) View.VISIBLE else View.GONE
-        holder.reh.visibility = if (showReh) View.VISIBLE else View.GONE
-        holder.vec.visibility = if (showVec) View.VISIBLE else View.GONE
-        holder.wsd.visibility = if (showWsd) View.VISIBLE else View.GONE
+            // 글씨 크기 설정
+            time.textSize = textSize
+            tmp.textSize = textSize
+            pop.textSize = textSize
+            pty.textSize = textSize
+            reh.textSize = textSize
+            vec.textSize = textSize
+            wsd.textSize = textSize
+            Log.d("fraglog", "weather adapter --- " +
+                    "time: ${weatherItem.time}, tmp: ${weatherItem.tmp}, " +
+                    "POP: ${weatherItem.pop}, PTY: ${weatherItem.pty},REH: ${weatherItem.reh},VEC: ${weatherItem.vec},WSD: ${weatherItem.wsd}")
 
-        if (showTmp) holder.tmp.text = "• 기온 : ${weatherItem.tmp}°"
-        if (showPop) holder.pop.text = "• 강수확률 : ${weatherItem.pop}%"
-        if (showPty) holder.pty.text = "• 강수량 : ${weatherItem.pty}mm"
-        if (showReh) holder.reh.text = "• 습도 : ${weatherItem.reh}%"
-        if (showVec) holder.vec.text = "• 풍향 : ${getWindDirection(weatherItem.vec.toInt())}" // 풍향 변환 함수 사용
-        if (showWsd) holder.wsd.text = "• 풍속 : ${weatherItem.wsd}m/s"
-
-        // 하늘 상태에 따라 아이콘 설정
-        val skyValue = weatherItem.sky.toIntOrNull()
-        Log.d("fraglog", "main weather adapter --- sky value: $skyValue")
-        when (skyValue) {
-
-            1 -> holder.sky.setImageResource(R.drawable.ic_sun) // Replace with your sun image resource
-            3 -> holder.sky.setImageResource(R.drawable.ic_cloudy) // Replace with your cloudy image resource
-            4 -> holder.sky.setImageResource(R.drawable.ic_dim) // Replace with your dim image resource
-            else -> holder.sky.setImageResource(R.drawable.ic_sun) // Replace with your default image resource
+            Log.d("fraglog", "weather adapter --- 글씨크기 : ${textSize}")
         }
-        holder.time.text = "${weatherItem.time.substring(0, 2)}시"
 
-        // 글씨 크기 설정
-        holder.time.textSize = textSize
-        holder.tmp.textSize = textSize
-        holder.pop.textSize = textSize
-        holder.pty.textSize = textSize
-        holder.reh.textSize = textSize
-        holder.vec.textSize = textSize
-        holder.wsd.textSize = textSize
+        /**
+         * 풍향 변환 wind direc, vec
+         */
+        private fun getWindDirection(degree: Int, language: String): String {
+            val directionsEnglish = arrayOf("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")
+            val directionsKorean = arrayOf("북", "북북동", "북동", "동북동", "동", "동남동", "남동", "남남동", "남", "남남서", "남서", "서남서", "서", "서북서", "북서", "북북서")
 
-        Log.d("fraglog", "weather adapter --- " +
-                "time: ${weatherItem.time}, tmp: ${weatherItem.tmp}, " +
-                "POP: ${weatherItem.pop}, PTY: ${weatherItem.pty},REH: ${weatherItem.reh},VEC: ${weatherItem.vec},WSD: ${weatherItem.wsd}")
-
-        Log.d("fraglog", "weather adapter --- 글씨크기 : ${textSize}")
-    }
-
-    override fun getItemCount() = weatherList.size
-
-    /**
-     * 풍향 변환 wind direc, vec
-     */
-    fun getWindDirection(degree: Int): String {
-        return when {
-            degree in 0..22 || degree in 338..360 -> "북"
-            degree in 23..67 -> "북동"
-            degree in 68..112 -> "동"
-            degree in 113..157 -> "동남동"
-            degree in 158..202 -> "남"
-            degree in 203..247 -> "남남서"
-            degree in 248..292 -> "서"
-            degree in 293..337 -> "북서"
-            else -> "$degree"
+            val index = ((degree + 11.25) / 22.5).toInt() % 16
+            return if (language == "korean") directionsKorean[index] else directionsEnglish[index]
         }
     }
-
 }
