@@ -3,6 +3,8 @@ package com.example.hiweather_aos
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +46,8 @@ class HomeFragment : Fragment() {
     private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var sharedPreferences: SharedPreferences
     var isRain:Boolean = false
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var updateTimeRunnable: Runnable
 
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         if (key != null) {
@@ -64,7 +68,9 @@ class HomeFragment : Fragment() {
 
         // preference에 따라 tvdate 보이게 하기
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        // 최신 값으로 업데이트하기
         updateTimeVisibility()
+        startUpdatingTime()
 
         // 설정 바뀔 때 update time visibility한다.
         sharedPreferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
@@ -84,14 +90,57 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // 리스너 등록
+        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+        // 최신 값으로 UI 업데이트
+        updateTimeVisibility()
+        startUpdatingTime()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // 리스너 등록 해제
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+        stopUpdatingTime()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+        stopUpdatingTime()
+    }
+
+
     /**
      * preference에 따라 time 가시성 설정
      */
     private fun updateTimeVisibility() {
         val isTimeVisible = sharedPreferences.getBoolean("time_visibility_preference", true)
-        Log.d("fraglog", "shared -- time -- : $isTimeVisible")
-        binding.tvDate.visibility = if (isTimeVisible) View.VISIBLE else View.INVISIBLE
-        binding.tvDate.text = getCurrentMainTime() // 메인 날짜 설정
+        Log.d("shared", "shared -- time -- : $isTimeVisible")
+        binding.tvDate.visibility = if (isTimeVisible) View.VISIBLE else View.INVISIBLE // 메인 날짜 설정
+        updateCurrentTime() // 현재 시간 업데이트
+    }
+
+    private fun startUpdatingTime() {
+        updateTimeRunnable = object : Runnable {
+            override fun run() {
+                updateCurrentTime()
+                handler.postDelayed(this, 1000) // 1초마다 업데이트
+            }
+        }
+        handler.post(updateTimeRunnable)
+    }
+
+    private fun stopUpdatingTime() {
+        handler.removeCallbacks(updateTimeRunnable)
+    }
+
+    private fun updateCurrentTime() {
+        if (binding.tvDate.visibility == View.VISIBLE) {
+            binding.tvDate.text = getCurrentMainTime() // 메인 날짜 설정
+        }
     }
     override fun onDestroy() {
         super.onDestroy()

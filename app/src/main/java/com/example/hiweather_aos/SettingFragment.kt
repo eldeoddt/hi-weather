@@ -47,7 +47,6 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
 
         // time visibleity
         timeVisibilityPreference = findPreference("time_visibility_preference")!!
-        updateTimeVisibilityPreference()
 
         loginPreference.setOnPreferenceClickListener {
             // 로그인 페이지로 이동
@@ -76,7 +75,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         } else if (key == "wind_direction_language_preference"){
             updateVecStylePreference()
         } else if (key == "time_visibility_preference") {
-            updateTimeVisibilityPreference()
+            updateHomeFragmentVisibility()
         }
     }
 
@@ -98,7 +97,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     fun upadateTextSizePreference() {
         val textSize = textSizePreferences.value
         Log.d("adapter", "setting text size -- ${textSizePreferences.value}")
-        Toast.makeText(requireContext(), "글씨 크기 : ${textSizePreferences.value}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "글씨 크기 : ${textSizePreferences.value}", Toast.LENGTH_SHORT).show()
         val editor = sharedPreferences.edit()
         editor.putString("text_size_preference", textSize)
         editor.apply()
@@ -110,7 +109,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     fun updateVecStylePreference() {
         val vecStyle = vecStylePreference.value
         Log.d("adapter", "setting vec style -- ${vecStylePreference.value}")
-        Toast.makeText(requireContext(), "풍향 언어 : ${vecStylePreference.value}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "풍향 언어 : ${vecStylePreference.value}", Toast.LENGTH_SHORT).show()
         // 선택된 항목을 저장
         val editor = sharedPreferences.edit()
         editor.putString("wind_direction_language_preference", vecStyle)
@@ -118,15 +117,11 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     }
 
     /**
-     * update time visibility
+     * update home fragment time visibility
      */
-    private fun updateTimeVisibilityPreference() {
-//        val timeVisibility = timeVisibilityPreference
-//        Log.d("adapter", "setting vec style -- ${vecStylePreference.value}")
-//        Toast.makeText(requireContext(), "풍향 언어 : ${vecStylePreference.value}", Toast.LENGTH_SHORT).show()
-//        // 선택된 항목을 저장
-//        val editor = sharedPreferences.edit()
-//        editor.putString("wind_direction_language_preference", vecStyle)
-//        editor.apply()
+    private fun updateHomeFragmentVisibility() {
+        // 홈 프래그먼트 업데이트를 트리거하기 위해 sharedPreferences 값만 수정
+        val isTimeVisible = sharedPreferences.getBoolean("time_visibility_preference", true)
+        Log.d("SettingFragment", "updateHomeFragmentVisibility: $isTimeVisible")
     }
 }
