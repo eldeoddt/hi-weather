@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PostNumActivity">
+
+    <WebView
+        android:id="@+id/location_search_webview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="32" />
+
+    <TextView
+        android:id="@+id/tv_full_road_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        style="@style/MainTempStyle"
+        android:text="도로명주소" />
+
+    <TextView
+        android:id="@+id/tv_jibun_addr"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/MainTempStyle"
+        android:text="지번주소" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_road_add"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        style="@style/MainTempStyle"-->
+<!--        android:text="우편번호" />-->
+
+</LinearLayout>

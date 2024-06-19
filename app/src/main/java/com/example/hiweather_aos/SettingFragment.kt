@@ -24,6 +24,7 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
     private lateinit var textSizePreferences: ListPreference
     private lateinit var vecStylePreference: ListPreference
     private lateinit var timeVisibilityPreference:SwitchPreferenceCompat
+    private lateinit var postNumPreference: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -48,9 +49,19 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
         // time visibleity
         timeVisibilityPreference = findPreference("time_visibility_preference")!!
 
+        // post num
+        postNumPreference = findPreference("post_num_preference")!!
+
         loginPreference.setOnPreferenceClickListener {
             // 로그인 페이지로 이동
             val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        postNumPreference.setOnPreferenceClickListener {
+            // 우편번호 페이지로 이동
+            val intent = Intent(activity, PostNumActivity::class.java)
             startActivity(intent)
             true
         }

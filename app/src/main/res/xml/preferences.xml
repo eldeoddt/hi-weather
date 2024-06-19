@@ -42,10 +42,9 @@
         android:defaultValue="true" />
 
 
-    <EditTextPreference
-        android:key="example_text"
+    <Preference
+        android:key="post_num_preference"
         android:title="위치 설정하기"
-        android:summary="원하는 위치를 설정하세요."
-        android:defaultValue="" />
+        android:summary="원하는 위치를 설정하세요." />
 
 </PreferenceScreen>

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-<!--    날씨 api 가져오기 권한 -->
+    xmlns:tools="http://schemas.android.com/tools" >
+    <!-- 날씨 api 가져오기 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".post.Firestore"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,37 +27,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HiWeather_AOS"
-        tools:targetApi="31">
-
-<!--        splash-->
-        <activity android:name=".splash.SplashActivity"
-            android:exported="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31" >
+        <activity
+            android:name=".PostNumActivity"
+            android:exported="false" />
+        <!-- splash -->
+        <activity
+            android:name=".splash.SplashActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
-        <!-- LoginActivity 선언 -->
-        <activity android:name=".Activity.LoginActivity"
-            android:exported="true">
-        </activity>
-        <!-- LogoutConfirmationActivity 선언 -->
-        <activity android:name=".Activity.LogoutConfirmationActivity"
-            android:exported="true">
-        </activity>
-        <!-- CreateUserActivity 선언 -->
-        <activity android:name=".Activity.SignupActivity"
-            android:exported="true">
-        </activity>
-        <!-- AddActivity 선언 -->
-        <activity android:name=".post.AddActivity"
+            android:exported="true" >
+        </activity> <!-- LoginActivity 선언 -->
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:exported="true" >
+        </activity> <!-- LogoutConfirmationActivity 선언 -->
+        <activity
+            android:name=".Activity.LogoutConfirmationActivity"
+            android:exported="true" >
+        </activity> <!-- CreateUserActivity 선언 -->
+        <activity
+            android:name=".Activity.SignupActivity"
+            android:exported="true" >
+        </activity> <!-- AddActivity 선언 -->
+        <activity
+            android:name=".post.AddActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
         </activity>
     </application>
 
