@@ -57,6 +57,7 @@ class AddActivity : AppCompatActivity() {
         val requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == android.app.Activity.RESULT_OK) {
                 binding.addImageView.visibility = View.VISIBLE
+                binding.tvPostCurrent.visibility = View.VISIBLE
                 Glide
                     .with(applicationContext)
                     .load(it.data?.data)
@@ -140,7 +141,7 @@ class AddActivity : AppCompatActivity() {
 
         val uploadTask = imageRef.putFile(uri)
         uploadTask.addOnSuccessListener {
-            Toast.makeText(this, "사진 업로드 성공.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "이미지 업로드 성공.", Toast.LENGTH_SHORT).show()
 
         }
         uploadTask.addOnFailureListener {

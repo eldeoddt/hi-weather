@@ -36,7 +36,7 @@ class PostFragment : Fragment() {
             }
             // 인증되지 않은 경우
             else {
-                Toast.makeText(requireContext(), "인증을 먼저 진행해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -59,7 +59,7 @@ class PostFragment : Fragment() {
                     binding.rvPost.layoutManager = LinearLayoutManager(requireContext())
                     binding.rvPost.adapter = PostAdapter(requireContext(), itemList) // adapter
 
-                    Toast.makeText(requireContext(), "데이터 불러오기 성공", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "데이터 불러오기 성공", Toast.LENGTH_SHORT).show()
                     Log.d("post", "Data successfully get")
                 }
                 // 실패한 경우

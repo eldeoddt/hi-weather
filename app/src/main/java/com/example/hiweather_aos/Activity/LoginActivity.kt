@@ -19,13 +19,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,28 +47,26 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        // google login
+        // 구글 로그인 로직
         val requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             Log.d("loginact","account1 : ${task.toString()}")
             try{
                 val account = task.getResult(ApiException::class.java)
-                val crendential = GoogleAuthProvider.getCredential(account.idToken, null)
-                auth.signInWithCredential(crendential)
-                    .addOnCompleteListener(this){task ->
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                auth.signInWithCredential(credential)
+                    .addOnCompleteListener(this){ task ->
                         // 로그인 성공 시 실행
                         if(task.isSuccessful){
                             Toast.makeText(baseContext,"구글 로그인 성공",Toast.LENGTH_SHORT).show()
                             Log.d("loginact", "구글 로그인 성공\n${auth.currentUser?.email} 님 안녕하세요!")
                             finish()
-                        }
-                        else{ // 로그인 실패 시 실행
+                        } else { // 로그인 실패 시 실행
                             Toast.makeText(baseContext,"구글 로그인 실패",Toast.LENGTH_SHORT).show()
                             Log.d("loginact", "구글 로그인 실패")
                         }
                     }
-            }catch (e: ApiException){ // APIException은 이미 지정된 exception말고 custom한 exception을 만들어서 쓰고 싶을때 사용
+            } catch (e: ApiException) { // APIException은 이미 지정된 exception말고 custom한 exception을 만들어서 쓰고 싶을때 사용
                 Toast.makeText(baseContext,"구글 로그인 Exception : ${e.printStackTrace()},${e.statusCode}",Toast.LENGTH_SHORT).show()
                 Log.d("loginact", "구글 로그인 Exception : ${e.message}, ${e.statusCode}")
             }
@@ -88,15 +86,12 @@ class LoginActivity : AppCompatActivity() {
 
         // 트위터 로그인 로직
         binding.btnTwitterLogin.setOnClickListener {
-
+            twitterLogin()
         }
 
         // 로그아웃 버튼
         binding.btnLogout.setOnClickListener {
-            Toast.makeText(
-                baseContext, "로그아웃합니다.",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(baseContext, "로그아웃합니다.", Toast.LENGTH_SHORT).show()
             auth.signOut()
             updateUI(null)
             val intent = Intent(this, MainActivity::class.java)
@@ -114,11 +109,12 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        val user = auth.currentUser
                         Toast.makeText(
-                            baseContext, "로그인에 성공하였습니다.\n${auth.currentUser?.email} 님 안녕하세요!",
+                            baseContext, "로그인에 성공하였습니다.\n${user?.email} 님 안녕하세요!",
                             Toast.LENGTH_SHORT
                         ).show()
-                        moveMainPage(auth.currentUser)
+                        moveMainPage(user)
                     } else {
                         Toast.makeText(
                             baseContext, "로그인에 실패하였습니다.",
@@ -126,6 +122,46 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
+        }
+    }
+
+    private fun twitterLogin() {
+        val provider = OAuthProvider.newBuilder("twitter.com")
+        provider.addCustomParameter("lang", "ko") // 언어 설정 (한국어)
+
+        val pendingResultTask = auth.pendingAuthResult
+        if (pendingResultTask != null) {
+            // 이미 인증 중인 결과가 있는 경우
+            pendingResultTask
+                .addOnSuccessListener { authResult ->
+                    // 로그인 성공
+                    handleTwitterLogin(authResult.user)
+                }
+                .addOnFailureListener {
+                    // 로그인 실패
+                    Toast.makeText(baseContext, "트위터 로그인 실패", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // 인증 절차 시작
+            auth.startActivityForSignInWithProvider(this, provider.build())
+                .addOnSuccessListener { authResult ->
+                    // 로그인 성공
+                    handleTwitterLogin(authResult.user)
+                }
+                .addOnFailureListener {
+                    // 로그인 실패
+                    Toast.makeText(baseContext, "트위터 로그인 실패", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun handleTwitterLogin(user: FirebaseUser?) {
+        if (user != null) {
+            Toast.makeText(baseContext, "트위터 로그인 성공\n${user.displayName} 님 안녕하세요!", Toast.LENGTH_SHORT).show()
+            updateUI(user)
+            moveMainPage(auth.currentUser)
+        } else {
+            Toast.makeText(baseContext, "트위터 로그인 실패", Toast.LENGTH_SHORT).show()
         }
     }
 
