@@ -1,10 +1,7 @@
 package com.example.hiweather_aos
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -23,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragments = listOf(
             HomeFragment(),
-            CalenderFragment(),
+            InformationFragment(),
             PostFragment(),
             SettingFragment()
         )

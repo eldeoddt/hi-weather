@@ -97,4 +97,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
     implementation("com.google.android.gms:play-services-auth:20.3.0")
     implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
+
+    // graph
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    //
 }
