@@ -16,6 +16,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <TextView
+                android:fontFamily="@font/pretendard_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="정보"
+                android:textColor="@color/color_black"
+                android:textSize="15sp" />
+            <View
+                android:id="@+id/view3"
+                style="@style/LineStyle" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
@@ -27,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="24dp"
                     style="@style/InfoTitleStyle"
                     android:text="• 시간별 기온 그래프" />
 
@@ -35,15 +48,17 @@
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp" />
+                    android:layout_margin="24dp" />
             </LinearLayout>
-
+            <View
+                android:id="@+id/view"
+                style="@style/LineStyle"/>
             <TextView
                 android:id="@+id/tv_youtube"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="2dp"
                 style="@style/InfoTitleStyle"
                 android:text="• 관련 영상" />
@@ -52,22 +67,27 @@
                 android:id="@+id/youtubePlayerView"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:layout_margin="16dp" />
+                android:layout_margin="24dp" />
+
+            <View
+                android:id="@+id/view2"
+                style="@style/LineStyle" />
 
             <TextView
                 android:id="@+id/tv_info_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
                 style="@style/InfoTitleStyle"
                 android:text="• 어제의 위성 이미지" />
+
             <ImageView
                 android:id="@+id/iv_info_img"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"/> 
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"/>
         </LinearLayout>
     </ScrollView>
 

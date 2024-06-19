@@ -66,4 +66,12 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_ic_select</item>
     </style>
+
+    <!--    line  Style -->
+    <style name="LineStyle">
+        <item name="android:background">#40A1A1A1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
 </resources>

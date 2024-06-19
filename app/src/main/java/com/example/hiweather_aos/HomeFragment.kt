@@ -65,8 +65,14 @@ class HomeFragment : Fragment() {
 
         // 10초 후에 알림 보내기
         Handler(Looper.getMainLooper()).postDelayed({
-            NotificationHelper.sendNotification(requireContext())
+            context?.let {
+                NotificationHelper.sendNotification(it)
+            } ?: run {
+                Log.e("HomeFragment", "Context is null")
+            }
         }, 10000)
+
+
         return binding.root
     }
 
