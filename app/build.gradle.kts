@@ -108,6 +108,6 @@ dependencies {
     // youtube
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
-    //kakao map
-    implementation("com.kakao.maps.open:android:2.9.5")
+    //naver map
+    implementation("com.naver.maps:map-sdk:3.18.0")
 }

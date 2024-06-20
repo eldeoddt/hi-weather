@@ -17,7 +17,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = java.net.URI("https://jitpack.io") }
-        maven { url = java.net.URI ("https://devrepo.kakao.com/nexus/repository/kakaomap-releases/") }
+        maven { url = java.net.URI ("https://repository.map.naver.com/archive/maven") }
     }
 }
 

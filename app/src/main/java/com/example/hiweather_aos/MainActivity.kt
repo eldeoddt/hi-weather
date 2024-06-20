@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
             HomeFragment(),
             InformationFragment(),
             PostFragment(),
-            SettingFragment()
+            SettingFragment(),
+            MapFragment()
         )
 
         val adapter = ViewPagerAdapter(this, fragments)

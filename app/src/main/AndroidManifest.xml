@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <meta-data
-        android:name="com.kakao.vectormap.APP_KEY"
-        android:value="2610b9228f60f851db82e5700e5c64bb" /> <!-- 날씨 api 가져오기 권한 -->
+    <!-- 날씨 api 가져오기 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -32,9 +30,11 @@
         android:theme="@style/Theme.HiWeather_AOS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".MapActivity"
-            android:exported="false" />
+
+        <meta-data
+            android:name="com.naver.maps.map.bjnkdg8cfh"
+            android:value="bjnkdg8cfh" />
+
         <activity
             android:name=".PostNumActivity"
             android:exported="false" /> <!-- splash -->

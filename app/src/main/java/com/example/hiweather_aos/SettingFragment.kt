@@ -4,17 +4,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.hiweather_aos.Activity.LoginActivity
-import com.example.hiweather_aos.Activity.LogoutConfirmationActivity
-import com.example.hiweather_aos.RvWeatherService.WeatherAdapter
 
 class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -72,8 +67,15 @@ class SettingFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPr
 
         mapPreference.setOnPreferenceClickListener {
             // 지도 페이지로 이동
-            val intent = Intent(activity, MapActivity::class.java)
-            startActivity(intent)
+            val mapFragment = MapFragment()
+
+            // FragmentManager를 사용하여 FragmentTransaction 시작
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container, mapFragment) // fragment_container는 프래그먼트를 넣을 컨테이너의 ID
+                addToBackStack(null) // 뒤로 가기 버튼을 눌렀을 때 이전 프래그먼트로 돌아가기 위해 백스택에 추가
+                commit() // 트랜잭션 커밋
+            }
+
             true
         }
     }
