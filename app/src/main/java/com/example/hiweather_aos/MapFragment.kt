@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.hiweather_aos.databinding.FragmentMapBinding
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapSdk
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.geometry.LatLng
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentMapBinding? = null
@@ -41,7 +41,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         myNaverMap = naverMap
-        // 지도 사용을 위한 추가 설정 코드 작성 가능
+
+        // 특정 좌표에 마커 추가
+        val marker = Marker()
+        marker.position = LatLng(37.5666102, 126.9783881) // 예시 좌표 (서울시청)
+        marker.map = naverMap
     }
 
     override fun onDestroyView() {
