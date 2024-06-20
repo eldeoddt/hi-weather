@@ -191,10 +191,8 @@ class InformationFragment : Fragment() {
     }
 
     private fun displayChart(tmpValues: List<Pair<String, Float>>) {
-        // tmpValues 리스트에서 현재 시간을 기준으로 데이터를 정렬합니다.
-        val sortedTmpValues = tmpValues.sortedBy { it.first }
-
-        val entries = sortedTmpValues.mapIndexed { index, pair ->
+        // tmpValues 리스트를 원래 순서대로 사용합니다.
+        val entries = tmpValues.mapIndexed { index, pair ->
             Entry(index.toFloat(), pair.second)
         }
 
@@ -207,8 +205,8 @@ class InformationFragment : Fragment() {
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val index = value.toInt()
-                return if (index in sortedTmpValues.indices) {
-                    sortedTmpValues[index].first
+                return if (index in tmpValues.indices) {
+                    tmpValues[index].first
                 } else {
                     ""
                 }
@@ -219,6 +217,7 @@ class InformationFragment : Fragment() {
 
         binding.lineChart.invalidate() // refresh chart
     }
+
 
     private fun adjustBaseTimeAndDate(currentDate: String, currentTime: String): Pair<String, String> {
         val timeMapping = mapOf(

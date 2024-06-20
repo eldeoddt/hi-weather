@@ -6,7 +6,7 @@
         android:key="login_preference"
         android:title="로그인"
         android:summary="로그인하거나 로그아웃합니다."
-        style="@style/MainTempStyle"/>
+        style="@style/preferenceStyle"/>
 
     <!-- 날씨 항목 선택 -->
     <MultiSelectListPreference
@@ -15,7 +15,8 @@
         android:summary="표시할 날씨 항목을 선택하세요."
         android:entries="@array/weather_items"
         android:entryValues="@array/weather_item_values"
-        android:defaultValue="@array/weather_item_values"/>
+        android:defaultValue="@array/weather_item_values"
+        style="@style/preferenceStyle"/>
 
     <!--글씨 크기 선택 -->
     <ListPreference
@@ -24,7 +25,8 @@
         android:summary="글씨 크기를 선택하세요."
         android:defaultValue="normal"
         android:entries="@array/text_size_options"
-        android:entryValues="@array/text_size_values" />
+        android:entryValues="@array/text_size_values"
+        style="@style/preferenceStyle"/>
 
     <ListPreference
         android:key="wind_direction_language_preference"
@@ -32,24 +34,28 @@
         android:summary="풍향 표기 방식을 선택하세요."
         android:defaultValue="english"
         android:entries="@array/wind_direction_language_options"
-        android:entryValues="@array/wind_direction_language_values" />
+        android:entryValues="@array/wind_direction_language_values"
+        style="@style/preferenceStyle"/>
 
 <!--시간 표시-->
     <SwitchPreferenceCompat
         android:key="time_visibility_preference"
         android:title="시간 표시"
         android:summary="시간을 표시하거나 숨깁니다."
-        android:defaultValue="true" />
+        android:defaultValue="true"
+        style="@style/preferenceStyle"/>
 
 
     <Preference
         android:key="post_num_preference"
         android:title="도로명주소 찾기"
-        android:summary="지번주소, 도로명주소를 찾아보세요." />
+        android:summary="지번주소, 도로명주소를 찾아보세요."
+        style="@style/preferenceStyle"/>
 
     <Preference
         android:key="map_preference"
         android:title="지도 보기"
-        android:summary="지도를 확인해보세요." />
+        android:summary="지도를 확인해보세요."
+        style="@style/preferenceStyle"/>
 
 </PreferenceScreen>
